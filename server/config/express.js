@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var path = require('path');
 
 
+var yohoproxy = require('../yohoproxy'); //引入代理
+
 
 
 
@@ -24,9 +26,12 @@ module.exports = function (app) {
   var node_env = process.env.NODE_ENV;
   console.log('Environment: ' + node_env);
   if(node_env === 'production') {
+    yohoproxy.init({mock:false});//初始化代理
     sess.cookie.secure = true; // Serve secure cookies
   }
-
+  else {
+    yohoproxy.init({mock:true});//初始化代理
+  }
 
 
   
